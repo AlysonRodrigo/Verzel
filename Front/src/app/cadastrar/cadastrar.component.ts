@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from '../Model/Usuario';
 import { AuthService } from '../service/auth.service';
-import { Usuario } from './Model/Usuario';
+
 
 @Component({
   selector: 'app-cadastrar',

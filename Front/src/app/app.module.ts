@@ -11,6 +11,7 @@ import { EntrarComponent } from './entrar/entrar.component';
 import { CadastrarComponent } from './cadastrar/cadastrar.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     MenuComponent,
     RodapeComponent,
     EntrarComponent,
-    CadastrarComponent
+    CadastrarComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

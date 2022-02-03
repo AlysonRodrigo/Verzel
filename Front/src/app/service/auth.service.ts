@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientJsonpModule } from '@angular/common/http';
-import { UsuarioLogin } from '../cadastrar/Model/UsuarioLogin';
+
 import { Observable } from 'rxjs';
-import { Usuario } from '../cadastrar/Model/Usuario';
 import { environment } from 'src/environments/environment.prod';
+import { UsuarioLogin } from '../Model/UsuarioLogin';
+import { Usuario } from '../Model/Usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,13 @@ export class AuthService {
   cadastrar(user: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>('http://localhost:8080/usuario/salvar', user)
   }
-  // logado() {
-  //   let ok: boolean = false
+   logado() {
+     let ok: boolean = false
 
-  //   if (environment.token != '') {
-  //     ok = true
-  //   }
+     if (environment.token != '') {
+       ok = true
+     }
 
-  //   return ok
-  // }
+     return ok
+  }
 }
