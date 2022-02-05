@@ -27,27 +27,27 @@ public class UsuarioService {
 			return Optional.ofNullable(repository.save(user));
 		});
 	}
-	
-	public Optional<?> pegarCredenciais(UsuarioDTO usuarioParaAutenticar) {
+
+	public Optional<?> pegarCredenciais(UsuarioDTO usuarioParaAutenticar){
 		return repository.findByEmail(usuarioParaAutenticar.getEmail()).map(usuarioExistente -> {
+			
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
 			if (encoder.matches(usuarioParaAutenticar.getSenha(), usuarioExistente.getSenha())) {
-
-				String estruturaBasic = usuarioParaAutenticar.getEmail() + ":" + usuarioParaAutenticar.getSenha();
-				byte[] autorizacaoBase64 = Base64.encodeBase64(estruturaBasic.getBytes(Charset.forName("US-ASCII")));
-				String autorizacaoHeader = "Basic " + new String(autorizacaoBase64);
+				
+				String estruturaBasic = usuarioParaAutenticar.getEmail() + ":" + usuarioParaAutenticar.getSenha(); // gustavoboaz@gmail.com:134652
+				byte[] autorizacaoBase64 = Base64.encodeBase64(estruturaBasic.getBytes(Charset.forName("US-ASCII"))); // hHJyigo-o+i7%0ÍUG465sas=-
+				String autorizacaoHeader = "Basic " + new String(autorizacaoBase64); // Basic hHJyigo-o+i7%0ÍUG465sas=-
 
 				usuarioParaAutenticar.setToken(autorizacaoHeader);
 				usuarioParaAutenticar.setId(usuarioExistente.getIdUsuario());
 				usuarioParaAutenticar.setNome(usuarioExistente.getNome());
 				usuarioParaAutenticar.setSenha(usuarioExistente.getSenha());
-				return Optional.ofNullable(usuarioParaAutenticar);
-
+				usuarioParaAutenticar.setTipo(usuarioExistente.getTipo());
+				return Optional.ofNullable(usuarioParaAutenticar); // Usuario Credenciado
 			} else {
 				return Optional.empty();
 			}
-
+			
 		}).orElseGet(() -> {
 			return Optional.empty();
 		});

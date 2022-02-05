@@ -12,6 +12,10 @@ import { CadastrarComponent } from './cadastrar/cadastrar.component';
 import { OrderModule } from 'ngx-order-pipe';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { InicioComponent } from './inicio/inicio.component';
+import { AlertasComponent } from './alertas/alertas.component';
+import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+import { CarrosEditComponent } from './carros-edit/carros-edit.component';
+import { CarrosApagarComponent } from './carros-apagar/carros-apagar.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { InicioComponent } from './inicio/inicio.component';
     RodapeComponent,
     EntrarComponent,
     CadastrarComponent,
-    InicioComponent
+    InicioComponent,
+    AlertasComponent,
+    CarrosEditComponent,
+    CarrosApagarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,10 @@ import { InicioComponent } from './inicio/inicio.component';
     ModalModule.forRoot(),
     OrderModule
   ],
-  providers: [],
+  providers: [{
+    provide: LocationStrategy,
+    useClass:HashLocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

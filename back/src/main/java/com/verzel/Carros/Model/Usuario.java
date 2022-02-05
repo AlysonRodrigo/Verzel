@@ -19,6 +19,7 @@ public class Usuario {
 	private @NotBlank String nome;
 	private @NotBlank String email;
 	private @NotBlank String senha;
+	private String tipo;
 	
 	@OneToMany(mappedBy = "publicador", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({ "publicador" })
@@ -47,8 +48,14 @@ public class Usuario {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-		
 	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	public List<Car> getMinhasPublicacoes() {
 		return minhasPublicacoes;
 	}

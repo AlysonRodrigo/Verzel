@@ -11,28 +11,28 @@ import { AuthService } from '../service/auth.service';
 })
 export class EntrarComponent implements OnInit {
 
-  userLogin:UsuarioLogin = new UsuarioLogin()
+  userLogin: UsuarioLogin = new UsuarioLogin()
   constructor(
-    private auth:AuthService,
-    private router:Router,
+    private auth: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    window.scroll(0,0)
+    window.scroll(0, 0)
   }
-  entrar(){
-    this.auth.entrar(this.userLogin).subscribe((resp:UsuarioLogin)=>{
-    this.userLogin=resp  
-    
-    environment.token = this.userLogin.token
-    environment.nome = this.userLogin.nome
-    environment.id = this.userLogin.id
+  entrar() {
+    this.auth.entrar(this.userLogin).subscribe((resp: UsuarioLogin) => {
+      this.userLogin = resp
 
-    this.router.navigate(['/inicio'])
-    },erro=>{
-      if(erro.status == 500){
+      environment.token = this.userLogin.token
+      environment.nome = this.userLogin.nome
+      environment.tipo = this.userLogin.tipo
+
+      this.router.navigate(['/inicio'])
+    }, erro => {
+      if (erro.status == 400) {
         alert('Email ou senha Incorreta!')
       }
     })
-      }
+  }
 }

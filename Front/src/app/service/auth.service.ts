@@ -29,4 +29,13 @@ export class AuthService {
 
      return ok
   }
+  typeUser(){
+    let ok: boolean = false
+
+    if(environment.tipo == "adm"){
+      ok = true
+    }
+
+    return ok
+  }
 }

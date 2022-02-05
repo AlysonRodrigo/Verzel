@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.verzel.Carros.Model.Car;
 import com.verzel.Carros.Repository.CarRepositorio;
 @RestController
 @RequestMapping("/carros")
+@CrossOrigin("*")
 public class CarController {
 	private @Autowired CarRepositorio repositorio;
 	
@@ -37,9 +39,16 @@ public class CarController {
 
 		return ResponseEntity.status(201).body(repositorio.save(novoCarro));
 	}
-
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Car> GetById(@PathVariable long idCar){
+		return repositorio.findById(idCar)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
+	
 	@GetMapping("/marca/{marca}")
-	public ResponseEntity<List<Car>> buscarPorMarcaI(@PathVariable(value = "marca") String marca) {
+	public ResponseEntity<List<Car>> buscarPorMarca(@PathVariable(value = "marca") String marca) {
 		List<Car> objetoLista = repositorio.findAllByMarcaContainingIgnoreCase(marca);
 
 		if (objetoLista.isEmpty()) {
@@ -62,10 +71,10 @@ public class CarController {
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Car> atualizar(@Valid @RequestBody Car marcaParaAtualizar) {
-		return ResponseEntity.status(201).body(repositorio.save(marcaParaAtualizar));
+		return ResponseEntity.status(200).body(repositorio.save(marcaParaAtualizar));
 	}
 
-	@DeleteMapping("/deletar/{idCar}")
+	@DeleteMapping("/{idCar}")
 	public void deletarCarPorId(@PathVariable(value = "idCar") Long idCar) {
 		repositorio.deleteById(idCar);
 	}

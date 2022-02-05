@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +25,7 @@ import com.verzel.Carros.Servicos.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin("*")
 public class UsuarioController {
 
 	private @Autowired RepositorioUsuario repositorio;
@@ -53,12 +54,11 @@ public class UsuarioController {
 	}
 
 	@PutMapping("/credenciais")
-	public ResponseEntity<Object> credenciais(@Valid @RequestBody UsuarioDTO usuarioParaAutenticar) {
+	public ResponseEntity<Object> credenciais(@Valid @RequestBody UsuarioDTO usuarioParaAutenticar){
 		Optional<?> objetoOptional = usuarioService.pegarCredenciais(usuarioParaAutenticar);
-
 		if (objetoOptional.isEmpty()) {
 			return ResponseEntity.status(400).build();
-		} else {
+		}else {
 			return ResponseEntity.status(201).body(objetoOptional.get());
 		}
 	}

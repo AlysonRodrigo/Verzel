@@ -15,6 +15,7 @@ public class Car {
 	private String marca;
 	private String modelo;
 	private String foto;
+	private Double valor;
 	
 	@ManyToOne
 	@JoinColumn(name = "criadores")
@@ -44,8 +45,14 @@ public class Car {
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
-		
 	}
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	
 	public Usuario getPublicador() {
 		return publicador;
 	}
